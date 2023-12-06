@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord import option
 from typing import Union
+import datetime
 
 class hello(commands.Cog): # Создаём класс для команды (имя класса должно совпадать с названием файла и команды для удобства, либо просто обязательно быть уникальным)
 
@@ -33,8 +34,16 @@ class hello(commands.Cog): # Создаём класс для команды (и
     gender: str, #опция gender
     age: int, #опция age
 ):
+    embed = discord.Embed( # Создаём красивый эмбед
+      title = f'Привет, {name}!', #заголовок
+      description=f'Вы указали, что ваш пол {gender}, и вам {age} лет!', #описание (контент)
+      color=0x9b59b6, #цвет
+      timestamp=datetime.datetime.utcnow() #время
+    )
+    embed.set_thumbnail(url=ctx.author.avatar) #устанавливаем небольшое изображение в виде аватарки пользователя
     await ctx.respond( # В слеш-командах обязательно всегда необходимо использовать ctx.respond, чтобы у пользователя не появлялось никаких ошибок
-      f"Привет, {name}! Ваш пол {gender}, и вам {age} лет"
+      'Привет!', #само сообщение
+      embed=embed #наш эмбед, созданный выше
     )
 
 def setup(bot): # Функция, которая вызывается при загрузке команды
