@@ -7,23 +7,26 @@
 import discord
 from discord.ext import commands
 import os
+import json
+
+with open('modules/config.json', 'r') as config_file: # Открываем конфиг
+  config = json.load(config_file) #получаем конфиг
 
 bot = discord.Bot() # Создаём нашего бота
 
 
 # Подключаем все команды
-import modules.hello #импортируем
-import modules.ping #...
-import modules.group #...
-
-modules.hello.setup(bot) #включаем
-modules.ping.setup(bot) #...
-modules.group.setup(bot) #...
+for filename in os.listdir("modules/"): #проходимся по всем файлам в папке modules/
+  if filename.endswith(".py"): #проверяем, что это файл python
+    bot.load_extension(f"modules.{filename[:-3]}") #загружаем его в бота
+    print(f"Загружен модуль {filename[:-3]}") #выводим в консоль, что модуль загружен
 
 
 @bot.event
 async def on_ready(): # Функция вызывается после запуска бота
   print(f"{bot.user} запущен")
 
+#print(config["token"]) # Если нужно, получаем информацию из конфига
+
 #bot.run(os.environ['BOT_TOKEN']) #--для реплита
-bot.run(os.environ['BOT_TOKEN']) # Запускаем бота (тут нужно указать токен)
+bot.run("токен") # Запускаем бота (тут нужно указать токен)
