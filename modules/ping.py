@@ -4,7 +4,7 @@ from discord.ext import commands
 class ping(commands.Cog):
 
   def __init__(self, bot):
-      self.bot = bot
+    self.bot = bot
 
   @commands.slash_command(name="ping")
   async def ping_command(
@@ -12,7 +12,7 @@ class ping(commands.Cog):
     ctx: discord.ApplicationContext
   ):
     await ctx.respond(
-        f"Pong! {round(self.bot.latency * 1000)}ms"
+      f"Pong! {round(self.bot.latency * 1000)}ms"
     )
 
 def setup(bot):
