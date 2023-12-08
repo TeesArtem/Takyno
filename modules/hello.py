@@ -10,7 +10,8 @@ class hello(commands.Cog): # Создаём класс для команды (и
     self.bot = bot
 
   @commands.slash_command( # Объявляем слеш-команду "hello"
-    name="hello", #название команды
+    "hello", #название команды
+    #Union[discord.TextChannel, discord.VoiceChannel], #типы, которые может принимать аргумент
     description="Приветствие пользователя" #описание команды
   )
   @option( # Создаём опцию, которую пользователь может указать при вызове команды
